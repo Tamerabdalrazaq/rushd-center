@@ -1,6 +1,5 @@
-import Calculator from 'components/calculator/Calculator'
+import CalculatorComponent from 'components/calculator/Calculator'
 import { useState } from 'react'
-import Report from 'components/calculator/Report'
 
 function Calculator() {
   const [blurred, setBlurred] = useState(false)
@@ -18,7 +17,7 @@ function Calculator() {
         {/* <div className='calc-title'>
           <h1 className="ccter"> أهلا {session? session.user.name:''} في الحاسبة الذكيّة  <GrCalculator /> </h1>
         </div> */}
-        <Calculator setBlurred={setBlurred} punch={punch} setShowReport={setShowReport} togglePuch={togglePuch}/> 
+        <CalculatorComponent setBlurred={setBlurred} punch={punch} setShowReport={setShowReport} togglePuch={togglePuch}/> 
         {punch && (
           <div style={{width: '20%'}}></div>
         )}
