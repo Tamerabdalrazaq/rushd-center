@@ -1,0 +1,269 @@
+.page {
+   display: flex;
+   padding-top: 1rem;
+   min-height: calc(100vh - 3.5rem);
+   background-color: #f5f5f5;
+   padding: 1.5rem;
+}
+
+.page * {
+   padding: 0;
+   margin: 0;
+}
+
+.container {
+   flex-direction: column;
+   padding: 1rem 0.5rem;
+   border-radius: 10px;
+   box-shadow: 0px 0px 29px -5px #000000;
+   width: 32rem;
+   height: 40rem;
+}
+
+.content {
+   height: 100%;
+   flex-direction: column;
+   justify-content: space-between;
+}
+
+.questionHeading {
+   font-size: 2.4rem;
+   transition: 0.3s all;
+   text-align: center;
+}
+
+.word_definitions {
+   width: 100%;
+   line-height: 20px;
+   transition: opacity .4s ease-in;
+   height: 35%;
+}
+.word_definition {
+   margin-bottom: 8px;
+}
+
+.definition_type {
+   display: flex;
+   justify-content: flex-start;
+   width: 100%;
+   margin-bottom: 5px;
+   position: relative;
+}
+
+.definition_number {
+   border: 1px solid #dadce0;
+   border-radius: 50%;
+   color: #5f6368;
+   font-size: 14px;
+   height: 18px;
+   line-height: 18px;
+   margin-right: 8px;
+   text-align: center;
+   width: 18px;
+   align-self: center;
+}
+
+.definition_part {
+   color: #1a73e8;
+   font-size: 14px;
+   font-weight: 500;
+   line-height: 20px;
+}
+
+.word_example_p {
+   color: #5f6368;
+   font-size: 14px;
+   margin-top: 4px;
+}
+
+.progressBar {
+   width: 15rem;
+   height: 1rem;
+   background-color: #e0e0e0;
+   border-radius: 3rem;
+   height: 10%;
+   overflow: hidden;
+}
+
+.progress {
+   background-color: rgb(38, 143, 248);
+   height: 100%;
+   transition: all 0.5s;
+   border-radius: 3rem;
+   position: relative;
+}
+
+.progress::after {
+   content: '';
+   position: absolute;
+   width: calc(100% - 10px);
+   height: 35%;
+   top: 50%;
+   left: 50%;
+   background-color: rgb(72, 163, 255);
+   border-radius: 3rem;
+   transform: translate(-50%, -70%);
+}
+
+.word_wrapper {
+   width: 100%;
+}
+
+.questionBody {
+   height: 80%;
+   width: 100%;
+   flex-direction: column;
+   justify-content: space-around;
+}
+
+.form {
+   gap: 1rem;
+   flex-direction: column;
+}
+
+.form button span {
+   font-size: 24px;
+}
+
+.inputContainer {
+   outline: none;
+   border: 2px solid #899;
+   /* border-radius: .3rem; */
+   position: relative;
+   overflow: hidden;
+   transition: all 0.1s;
+}
+
+.input {
+   border: none;
+   outline: none;
+   font-size: 1.8em;
+   background-color: transparent;
+   padding: 0.6em 0.8em;
+   height: 100%;
+   vertical-align: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.inputCheckContainer {
+   background-color: var(--tertiary-reg);
+   flex-direction: column;
+   font-size: 1.5em;
+   border-left: 3px solid #fff;
+   padding: 0.2em 0.8em;
+   height: 100%;
+   position: absolute;
+   right: 0;
+   top: 0;
+   bottom: 0;
+   cursor: pointer;
+}
+
+.inputCheckContainer:hover {
+   background-color: var(--tertiary-light);
+}
+
+.inputContainer:hover {
+   border-color: #3f51b5;
+}
+
+.check {
+   color: #fff;
+}
+.incorrect {
+   border-color: rgb(196, 0, 0) !important;
+}
+
+.correct {
+   border-color: rgb(44, 169, 3) !important;
+}
+
+/* Finished Quiz */
+
+.finishedQuizContainer {
+   flex-direction: column;
+   gap: 2em;
+}
+.finishedQuizContainer .icon {
+   font-size: 4.5em;
+   color: #0f0;
+}
+
+.visible {
+   visibility: initial;
+   opacity: 1;
+}
+.invisible {
+   visibility: hidden;
+   opacity: 0;
+}
+
+@media screen and (max-width: 550px) {
+   .page {
+      padding: 0;
+      width: 100vw;
+      min-height:auto;
+      justify-content: flex-start;
+   }
+   .container {
+      padding: 1rem 0.5rem;
+      border-radius: 10px;
+      box-shadow: none;
+      box-shadow: 0px 0px 20px -14px #000000;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(253, 253, 253);
+   }
+
+   .content {
+      justify-content: flex-start;
+      gap: 2.5rem;
+   }
+
+   .progressBar {
+      width: 35rem;
+      height: 2.2rem;
+      background-color: #e0e0e0;
+      border-radius: 0.8rem;
+      overflow: hidden;
+   }
+   .questionBody {
+      justify-content: flex-start;
+      gap: 3rem;
+      font-size: 10px;
+      height: fit-content;
+      padding-bottom: 1em;
+      /* border-bottom: 1px solid #CCF; */
+   }
+   .questionHeading {
+      font-size: 3.5em;
+   }
+
+   .inputContainer {
+      height: 4.4em;
+      width: 100%;
+   }
+   .form {
+      gap: 2em;
+   }
+
+   .form button {
+      /* padding: 4em 5em; */
+      border-width: 2px;
+   }
+   .form button span {
+      font-size: 1.85em;
+   }
+
+   .finishedQuizContainer {
+      font-size: 12px;
+   }
+   .word_definition_p {
+      font-size: 2rem;
+   }
+   .word_example_p {
+      font-size: 1.8rem;
+   }
+}

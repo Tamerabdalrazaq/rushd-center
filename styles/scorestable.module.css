@@ -1,0 +1,35 @@
+.wrapper{
+    padding: 2rem;
+}
+
+.table{
+    display: flex;
+    flex-direction: column;
+}
+
+.trow{
+    display: flex;
+    justify-content: space-between;
+    min-height: 3rem;
+    align-items: center;
+    gap: 1rem
+}
+.thead{
+    background-color: var(--sec-reg);
+    font-weight: 800;
+    font-size: 1rem;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.section{
+    text-align: center;
+}
+
+.trowdata {
+    background-color: #DEDEDE;
+}
+
+.trowdata:nth-child(even){
+    background-color: #ffffff;
+}

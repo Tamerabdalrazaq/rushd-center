@@ -1,0 +1,43 @@
+.progressBarWrapper{
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.progressBar{
+    width: 25em;
+    height: 4em;
+    display: flex;
+    background-color: #f1f1f1;
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+    overflow: hidden;
+}
+
+
+.reviewed, .needReview, .remaining{
+    height: 100%;
+    transition: all .5s;
+}
+.reviewed{
+    background-color: #20C84F;
+}
+.needReview{
+    background-color: #88FF9B;
+}
+.remaining{
+    background-color: #717171;
+}
+
+.categories{
+    justify-content: space-around;
+    width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+    .progressBarWrapper{
+        font-size: 10px;
+    }
+    .categories{
+        font-size: 12px;
+    }
+}
