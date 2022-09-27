@@ -2,7 +2,7 @@ import Calculator from 'components/calculator/Calculator'
 import { useState } from 'react'
 import Report from 'components/calculator/Report'
 
-function calculator() {
+function Calculator() {
   const [blurred, setBlurred] = useState(false)
   const [showReport, setShowReport] = useState(false)
   const [punch, togglePuch] = useState(false)
@@ -31,4 +31,4 @@ function calculator() {
   )
 }
 
-export default calculator
+export default Calculator

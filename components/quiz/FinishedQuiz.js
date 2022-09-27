@@ -9,7 +9,7 @@ function FinishedQuiz({ reviewedWords }) {
         <div className={`${styles.finishedQuizContainer} ccter`}>
             <AiOutlineFileDone className={styles.icon}/>
             <div>
-                <h2>You've Reviewed {reviewedWords} Words!</h2>
+                <h2>You&apos;ve Reviewed {reviewedWords} Words!</h2>
             </div>
             <div>
                 <Link href="/vocabulary">

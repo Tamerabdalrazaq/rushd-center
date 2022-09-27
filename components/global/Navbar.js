@@ -4,7 +4,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { useRouter } from 'next/dist/client/router'
 import { useRef } from 'react'
 
-function navbar() {
+function Navbar() {
    const router = useRouter()
    const navchild = useRef(`${navstyle.navchild} ${navstyle.ccter}`)
    const { data: session, status } = useSession()
@@ -70,4 +70,4 @@ function navbar() {
    )
 }
 
-export default navbar
+export default Navbar

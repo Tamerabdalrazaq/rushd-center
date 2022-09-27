@@ -5,7 +5,7 @@ import { StatsContext } from 'context/UserStats'
 import structures from '../data/table'
 
 
-function myscores() {
+function MyScores() {
     const { scoresList } = useContext(StatsContext)
     return (
         <div className={`${styles.page}`}>
@@ -17,4 +17,4 @@ function myscores() {
     )
 }
 
-export default myscores
+export default MyScores

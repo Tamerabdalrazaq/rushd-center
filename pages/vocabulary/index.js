@@ -10,7 +10,7 @@ import { unstable_getServerSession } from 'next-auth'
 import { getUserData } from 'utils/api/client_api'
 
 
-function vocabulary({ session, userLists, categorizedWords, globalLists }) {
+function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
    const [lists, setLists] = useState(userLists)
    if (!session) return 'Please Sign In..'
    return (
@@ -91,4 +91,4 @@ export async function getServerSideProps(context) {
    }
 }
 
-export default vocabulary
+export default Vocabulary
