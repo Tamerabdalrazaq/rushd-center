@@ -1,16 +1,20 @@
+import axios from 'axios'
+
 const BASE_URL = process.env.BASE_URL
 
 export async function getUserData(session) {
    try {
-      let subscriptions = await fetch(
+      let subscriptions = axios.get(
          BASE_URL + 'api/users/subscriptions/' + session.user.id
       )
-      let scores = await fetch(
+      let scores = axios.get(
          BASE_URL + 'api/users/scores/' + session.user.id
       )
-      const globalLists = await getLists()
-      subscriptions = await subscriptions.json()
-      scores = await scores.json()
+      const globalLists_req = getLists()
+      const promises = await Promise.all([subscriptions, scores, globalLists_req])
+      const [subscriptions_res, scores_res, globalLists] = promises
+      subscriptions =subscriptions_res.data
+      scores = scores_res.data
       const userLists = subscriptions.lists
       const { categorizedLists, categorizedWords } = getStats(
          subscriptions.lists

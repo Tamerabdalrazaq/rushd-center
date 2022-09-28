@@ -17,7 +17,7 @@ function Navbar() {
                   <div
                      className={[navstyle.navtitle, navstyle.ccter].join(' ')}
                   >
-                     بسيخومترينا
+                     مركز رُشْد
                   </div>
                   <Link href="/calculator">
                      <a

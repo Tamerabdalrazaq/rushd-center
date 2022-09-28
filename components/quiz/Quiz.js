@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useRouter } from 'next/dist/client/router'
 import Loading from 'components/global/Loading'
 import FinishedQuiz from './FinishedQuiz'
+import BackTo from './BackTo'
 
 
 const QUESTIONS_PER_ROUND = 12
@@ -44,6 +45,9 @@ function Quiz({ data: { categorizedWords, categorizedLists } }) {
 
    return (
       <div className={`${styles.container}`}>
+         <div className={styles.back_button}>
+            <BackTo to={'vocabulary'} />
+         </div>
          <div className={`${styles.content} ccter`}>
             {(() => {
                if (gameArray.length && wordsArray) {

@@ -8,11 +8,19 @@ import Button from '@mui/material/Button'
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { unstable_getServerSession } from 'next-auth'
 import { getUserData } from 'utils/api/client_api'
-
+import { organizeListsByParent } from 'utils/helpers'
+import { signIn } from 'next-auth/react'
 
 function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
    const [lists, setLists] = useState(userLists)
-   if (!session) return 'Please Sign In..'
+
+   if (!session) {
+      signIn()
+      return ''
+   } 
+
+   const organizedLists = organizeListsByParent(globalLists)
+
    return (
       <div className={styles.wrapper}>
          <main className={`${styles.main} ccter`}>
@@ -48,7 +56,11 @@ function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
                {lists.length ? (
                   <div className={styles.listsContainer}>
                      {lists.map((list) => (
-                        <ListRow key={list._id} list={list} setLists={setLists} />
+                        <ListRow
+                           key={list._id}
+                           list={list}
+                           setLists={setLists}
+                        />
                      ))}
                   </div>
                ) : (
@@ -61,7 +73,10 @@ function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
                )}
             </div>
          </main>
-         <ListsSection lists={globalLists} updateLists={setLists} />
+         {Object.keys(organizedLists)
+            .map((parent) => (
+               <ListsSection name={parent} lists={organizedLists[parent]} updateLists={setLists} />
+            ))}
       </div>
    )
 }
@@ -72,22 +87,23 @@ export async function getServerSideProps(context) {
       context.res,
       authOptions
    )
-   if (!session) return {
-    props: {
-        session
-    }
-   }
+   if (!session)
+      return {
+         props: {
+            session: false,
+         },
+      }
    else {
-       const data = await getUserData(session)
-       const { userLists, categorizedWords, globalLists } = data
-       return {
-          props: {
-             session,
-             userLists,
-             categorizedWords,
-             globalLists,
-          },
-       }
+      const data = await getUserData(session)
+      const { userLists, categorizedWords, globalLists } = data
+      return {
+         props: {
+            session,
+            userLists,
+            categorizedWords,
+            globalLists,
+         },
+      }
    }
 }
 

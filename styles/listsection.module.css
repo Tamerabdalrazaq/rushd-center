@@ -7,6 +7,7 @@
 }
 
 .listsGrid{
+    margin-top: 1rem;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);

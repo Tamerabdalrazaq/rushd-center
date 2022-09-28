@@ -49,3 +49,15 @@ export function getDate() {
     today = dd + '/' + mm + '/' + yyyy;
     return today
 }
+
+export function organizeListsByParent(lists) {
+    const organized = {}
+    for (const list of lists) {
+        if (organized[list.parent]) {
+            organized[list.parent].push(list)
+        } else {
+            organized[list.parent] = [list]
+        }
+    }
+    return organized
+}
