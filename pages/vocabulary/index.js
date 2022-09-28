@@ -17,7 +17,7 @@ function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
    if (!session) {
       signIn()
       return ''
-   } 
+   }
 
    const organizedLists = organizeListsByParent(globalLists)
 
@@ -73,10 +73,14 @@ function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
                )}
             </div>
          </main>
-         {Object.keys(organizedLists)
-            .map((parent) => (
-               <ListsSection name={parent} lists={organizedLists[parent]} updateLists={setLists} />
-            ))}
+         {Object.keys(organizedLists).map((parent) => (
+            <ListsSection
+               key={parent}
+               name={parent}
+               lists={organizedLists[parent]}
+               updateLists={setLists}
+            />
+         ))}
       </div>
    )
 }
