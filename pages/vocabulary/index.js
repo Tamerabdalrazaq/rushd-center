@@ -13,13 +13,13 @@ import { signIn } from 'next-auth/react'
 import WordsTable from 'components/vocabulary/WordsTable'
 
 function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
+   const [populatedWords, setPopulatedWords] = useState([])
+   const [lists, setLists] = useState(userLists)
    if (!session) {
       signIn()
       return ''
    }
 
-   const [populatedWords, setPopulatedWords] = useState([])
-   const [lists, setLists] = useState(userLists)
    const { categorizedLists } = categorizeUserLists(lists)
    useEffect(() => {
       async function f() {
