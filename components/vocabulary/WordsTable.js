@@ -11,7 +11,7 @@ function WordsTable({ wordsArray, populatedWords }) {
    const tableRef = useRef()
    // useEffect(() => tableRef.current.scrollTop = tableRef.current.scrollHeight,[])
    return (
-      <div id="table-wrapper">
+      <div id="words-table-wrapper">
          <div id="table-scroll" ref={tableRef}>
             <table id="table">
                <thead>
@@ -35,9 +35,11 @@ function WordsTable({ wordsArray, populatedWords }) {
                            <td>{wordObject.word}</td>
                            <td>{humanDueTime}</td>
                            <td>
+                              <div>
                               <Circle
                                  color={`var(--circle-${getColor(wordStatus.dueTime)})`}
                               />
+                              </div>
                            </td>
                         </tr>
                      ) : null

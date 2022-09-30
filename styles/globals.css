@@ -324,52 +324,70 @@ button {
 
 
 /* TABLE */
-table {
+#words-table-wrapper {
+  display: flex;
+  align-items: flex-start;
+  height: 300px;
+}
+#words-table-wrapper table {
   border-collapse: collapse;
   margin: 0 auto;
   font-size: 0.9em;
-  max-width: 400px;
   border-radius: 5px 5px 0 0;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  width:100%;
+  width: 100%;
+  width:550px;
+  font-size: 21px;
 }
 
-table thead tr {
+#words-table-wrapper table thead{
+  width: 100rem;
+  position: sticky;
+}
+#words-table-wrapper table thead tr {
   background-color: #009879;
   color: #ffffff;
   text-align: left;
   font-weight: bold;
 }
-table th,
-table td {
+#words-table-wrapper table th,
+#words-table-wrapper table td {
   padding: 12px 15px;
+  text-align: center;
 }
 
-table tr {
+#words-table-wrapper table td  div {
+  display: flex;
+  justify-content: center;
+}
+
+#words-table-wrapper table tr {
   border-bottom: 1px solid #dddddd;
   color: #787878;
 }
 
-table tr:nth-of-type(even) {
+#words-table-wrapper table tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }
 
-table tr:last-of-type {
+#words-table-wrapper table tr:last-of-type {
   border-bottom: 2px solid #009879;
 }
 
-table tr.active-row {
+#words-table-wrapper table tr.active-row {
   font-weight: bold;
   color: #009879;
 }
 
-#table-wrapper {
-  display: flex;
-  align-items: flex-start;
-  height: 15rem;
-}
 #table-scroll {
   height:100%;
   overflow:scroll;  
+  position: relative;
 }
 
+@media screen and (max-width: 500px) {
+  #words-table-wrapper table {
+    width: 100vw;
+    font-size: 16px;
+  } 
+}

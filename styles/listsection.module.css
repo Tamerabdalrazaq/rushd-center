@@ -60,9 +60,21 @@
     color: #fff;
 }
 
+._button{
+    width: 100%;
+    background-color: var(--forth-reg);
+    color: var(--bg-main);
+    font-size: 1rem;
+}
+
 @media screen and (max-width: 500px) {
     .content{
         width: 92%;
     }
-    
+    .MuiButtonBase-root{
+        width: 80%;
+    }
+    .listsGrid{
+        grid-template-columns: repeat(3, 1fr);
+    }
 }

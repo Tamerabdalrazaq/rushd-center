@@ -40,9 +40,9 @@ function WordsListItem({ list, updateLists }) {
                   <div className={`${styles.hovered} ccter`}>
                      <h2>{list.name}</h2>
                      <h3>{list.words.length} Words</h3>
-                     <Button variant="contained" color="secondary" onClick={subscribeUser}>
+                     <button className={styles._button} variant="contained" color="secondary" onClick={subscribeUser}>
                         Subscribe to this list!
-                     </Button>
+                     </button>
                   </div>
                )
             })()}
