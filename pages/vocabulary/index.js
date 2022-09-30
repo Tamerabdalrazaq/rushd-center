@@ -15,19 +15,19 @@ import WordsTable from 'components/vocabulary/WordsTable'
 function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
    const [populatedWords, setPopulatedWords] = useState([])
    const [lists, setLists] = useState(userLists)
-   if (!session) {
-      signIn()
-      return ''
-   }
-
    const { categorizedLists } = categorizeUserLists(lists)
    useEffect(() => {
       async function f() {
          const data = await collectWords(joinObjectFields(categorizedWords))
          setPopulatedWords(data)
       }
-      f()
+      session && f()
    }, [])
+
+   if (!session) {
+      signIn()
+      return ''
+   }
 
    const organizedLists = organizeListsByParent(globalLists)
 
