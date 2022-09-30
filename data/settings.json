@@ -1,0 +1,8 @@
+{
+    "phase_0_time": 1,
+    "phase_1_time": 3,
+    "phase_2_time": 7,
+    "phase_3_time": 14,
+    "phase_4_time": 30,
+    "phase_default_time": 60
+}

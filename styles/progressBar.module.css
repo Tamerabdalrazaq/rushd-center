@@ -13,19 +13,22 @@
     overflow: hidden;
 }
 
+.mini{
+    font-size: 20px;
+}
 
 .reviewed, .needReview, .remaining{
     height: 100%;
     transition: all .5s;
 }
 .reviewed{
-    background-color: #20C84F;
+    background-color: var(--circle-reviewed);
 }
 .needReview{
-    background-color: #88FF9B;
+    background-color: var(--circle-needReview);
 }
 .remaining{
-    background-color: #717171;
+    background-color: var(--circle-remaining);
 }
 
 .categories{

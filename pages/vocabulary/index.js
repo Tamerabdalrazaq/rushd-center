@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import ListRow from 'components/vocabulary/ListRow'
 import ProgressBar from 'components/vocabulary/ProgressBar'
@@ -7,17 +7,27 @@ import styles from 'styles/vocabulary.module.css'
 import Button from '@mui/material/Button'
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { unstable_getServerSession } from 'next-auth'
-import { getUserData } from 'utils/api/client_api'
-import { organizeListsByParent } from 'utils/helpers'
+import { categorizeUserLists, collectWords, getUserData } from 'utils/api/client_api'
+import { joinObjectFields, organizeListsByParent } from 'utils/helpers'
 import { signIn } from 'next-auth/react'
+import WordsTable from 'components/vocabulary/WordsTable'
 
 function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
-   const [lists, setLists] = useState(userLists)
-
    if (!session) {
       signIn()
       return ''
    }
+
+   const [populatedWords, setPopulatedWords] = useState([])
+   const [lists, setLists] = useState(userLists)
+   const { categorizedLists } = categorizeUserLists(lists)
+   useEffect(() => {
+      async function f() {
+         const data = await collectWords(joinObjectFields(categorizedWords))
+         setPopulatedWords(data)
+      }
+      f()
+   }, [])
 
    const organizedLists = organizeListsByParent(globalLists)
 
@@ -48,29 +58,32 @@ function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
                   </Link>
                </div>
             </div>
-
-            <div className={styles.myLists}>
-               <div className={styles.myListsTitle}>
-                  <h2>My Lists</h2>
+            <div className={styles.lists_words_section}>
+               <div className={styles.myLists}>
+                  <div className={styles.myListsTitle}>
+                     <h2>My Lists</h2>
+                  </div>
+                  {lists.length ? (
+                     <div className={styles.listsContainer}>
+                        {lists.map((list) => (
+                           <ListRow
+                              key={list._id}
+                              list={list}
+                              setLists={setLists}
+                              categorizedList={categorizedLists[list._id]}
+                           />
+                        ))}
+                     </div>
+                  ) : (
+                     <div className={styles.emptyList}>
+                        <h3>Your List Is Empty :(</h3>
+                        <Button variant="contained" color="primary">
+                           Add My First List
+                        </Button>
+                     </div>
+                  )}
                </div>
-               {lists.length ? (
-                  <div className={styles.listsContainer}>
-                     {lists.map((list) => (
-                        <ListRow
-                           key={list._id}
-                           list={list}
-                           setLists={setLists}
-                        />
-                     ))}
-                  </div>
-               ) : (
-                  <div className={styles.emptyList}>
-                     <h3>Your List Is Empty :(</h3>
-                     <Button variant="contained" color="primary">
-                        Add My First List
-                     </Button>
-                  </div>
-               )}
+               <WordsTable wordsArray={categorizedWords} populatedWords={populatedWords} />
             </div>
          </main>
          {Object.keys(organizedLists).map((parent) => (

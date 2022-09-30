@@ -7,16 +7,18 @@ export async function getUserData(session) {
       let subscriptions = axios.get(
          BASE_URL + 'api/users/subscriptions/' + session.user.id
       )
-      let scores = axios.get(
-         BASE_URL + 'api/users/scores/' + session.user.id
-      )
+      let scores = axios.get(BASE_URL + 'api/users/scores/' + session.user.id)
       const globalLists_req = getLists()
-      const promises = await Promise.all([subscriptions, scores, globalLists_req])
+      const promises = await Promise.all([
+         subscriptions,
+         scores,
+         globalLists_req,
+      ])
       const [subscriptions_res, scores_res, globalLists] = promises
-      subscriptions =subscriptions_res.data
+      subscriptions = subscriptions_res.data
       scores = scores_res.data
       const userLists = subscriptions.lists
-      const { categorizedLists, categorizedWords } = getStats(
+      const { categorizedLists, categorizedWords } = categorizeUserLists(
          subscriptions.lists
       )
       const scoresList = scores
@@ -35,12 +37,12 @@ export async function getUserData(session) {
 }
 
 async function getLists() {
-   let globalLists = await fetch(BASE_URL+'api/lists')
+   let globalLists = await fetch(BASE_URL + 'api/lists')
    globalLists = await globalLists.json()
    return globalLists.lists
 }
 
-function getStats(lists) {
+export function categorizeUserLists(lists) {
    const categorizedListsObject = {}
    lists.forEach((list) => {
       const categorizedList = {
@@ -80,4 +82,10 @@ function getCategorizedWordsObject(categorizedLists) {
       }
    }
    return wordsObject
+}
+
+export async function collectWords(relevantWords) {
+   const wordsIds = relevantWords.map((word) => word._id)
+   let words = (await axios.post('/api/words/collect', { wordsIds })).data.words
+   return words
 }

@@ -2,34 +2,34 @@ import { useEffect, useState, useRef } from 'react'
 import QuizProgressBar from './QuizProgressBar'
 import Question from 'components/quiz/Question'
 import styles from 'styles/practice.module.css'
-import axios from 'axios'
 import { useRouter } from 'next/dist/client/router'
 import Loading from 'components/global/Loading'
 import FinishedQuiz from './FinishedQuiz'
 import BackTo from './BackTo'
+import { collectWords } from 'utils/api/client_api'
 
 
 const QUESTIONS_PER_ROUND = 12
 const QUESTION_REPEAT_STEP = 3
 
 function Quiz({ data: { categorizedWords, categorizedLists } }) {
-   console.log(categorizedLists, categorizedWords);
    const router = useRouter()
    const [wordsArray, setWordsArray] = useState(null)
    const [gameArray, setGameArray] = useState([])
    const [question, setQusetion] = useState(0)
    const reviewedWords = useRef()
+   console.log(gameArray);
 
    async function fetchWords(relevantWords) {
       try{
-         const wordsIds = relevantWords.map((word) => word._id)
-         let words = (await axios.post('/api/words/collect', { wordsIds })).data
+         let words = await collectWords(relevantWords)
          const filteredRelevantWords = relevantWords.filter((gameWord) =>
-            words.words.find((foundWord) => foundWord._id === gameWord._id)
+            words.find((foundWord) => foundWord._id === gameWord._id)
          )
-         setWordsArray(words.words)
+         setWordsArray(words)
          setGameArray(filteredRelevantWords)
       } catch(e) {
+         console.log(e);
          alert('An Error Has Occured!')
       }
    }
@@ -67,6 +67,7 @@ function Quiz({ data: { categorizedWords, categorizedLists } }) {
                            questionNum={question}
                            userListWord={gameArray[question]}
                            next={next}
+                           replicated={gameArray[question].replicated}
                         />
                      </>
                   )
@@ -97,12 +98,13 @@ function Quiz({ data: { categorizedWords, categorizedLists } }) {
 
    function getGameArray(isWrong) {
       if (!isWrong) return gameArray
-      const currentWord = gameArray[question]
+      const currentWord = {...gameArray[question], replicated: true}
       const newGameArray = [...gameArray]
       const newWordIndex =
          question + QUESTION_REPEAT_STEP >= gameArray.length
             ? gameArray.length
             : question + QUESTION_REPEAT_STEP
+            console.log(currentWord);
       newGameArray.splice(newWordIndex, 0, currentWord)
       return newGameArray
    }

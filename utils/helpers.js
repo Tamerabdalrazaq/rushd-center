@@ -61,3 +61,31 @@ export function organizeListsByParent(lists) {
     }
     return organized
 }
+
+export function msToTime(ms) {
+    if (ms <= 0) return '0'
+    let seconds = (ms / 1000).toFixed();
+    let minutes = (ms / (1000 * 60)).toFixed();
+    let hours = (ms / (1000 * 60 * 60)).toFixed();
+    let days = (ms / (1000 * 60 * 60 * 24)).toFixed();
+    if (seconds < 60) return seconds + " Sec";
+    else if (minutes < 60) return minutes + " Min";
+    else if (hours < 24) return hours + " Hrs";
+    else return days + " Days"
+  }
+
+export function joinObjectFields(obj) {
+    let returned = []
+    for(const field in obj) returned = returned.concat(obj[field])
+    return returned
+}
+
+export function findObjectById(arr, _id) {
+    return arr.find((o) => o._id === _id)
+}
+
+export function sorted(array, callback) {
+    let arr = [...array]
+    arr.sort(callback)
+    return arr
+}

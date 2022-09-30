@@ -5,21 +5,22 @@ import { IoIosArrowDroprightCircle } from 'react-icons/io'
 import { HiCheckCircle } from 'react-icons/hi'
 import axios from 'axios'
 import WordDescribtion from './WordDescribtion'
-import useFocus from '../../utils/features/useFocus'
+import settings from 'data/settings.json'
 import { useRef } from 'react'
+
 
 function Question({
    word,
    questionNum,
    next,
    userListWord: { parentId, phase },
+   replicated
 }) {
-   const inputRef = useRef();
+   const inputRef = useRef()
    const [input, setInput] = useState('')
    const [cheated, setCheated] = useState(false)
    const [answeredCorrectly, setAnsweredCorrectly] = useState(null)
    const [freeze, setFreeze] = useState(false)
-
    useEffect(() => {
       setAnsweredCorrectly(null)
       setInput('')
@@ -34,14 +35,17 @@ function Question({
          setAnsweredCorrectly(true)
          setFreeze(true)
          setTimeout(() => next(cheated), 1000)
-         const nextPhase = cheated ? 0 : phase + 1
-         const dueTime = getDueTime(nextPhase)
-         updateWordStatus(parentId, word._id, dueTime, nextPhase)
+         if(!replicated){
+            const nextPhase = cheated ? 0 : phase + 1
+            const dueTime = getDueTime(nextPhase)
+            updateWordStatus(parentId, word._id, dueTime, nextPhase)
+         }
       } else {
          const dueTime = getDueTime(0)
          setAnsweredCorrectly(false)
          setCheated(true)
-         updateWordStatus(parentId, word._id, dueTime, 0)
+         if(!replicated)
+            updateWordStatus(parentId, word._id, dueTime, 0)
       }
    }
 
@@ -121,7 +125,11 @@ function getWordStatus(answeredCorrectly) {
 function checkEquality(input, word) {
    input = input.trim().toLowerCase()
    word = word.trim().toLowerCase()
-   return input === word
+   const appends = ['', 'd', 'ed', 's', 'es', 'ing']
+   for (const append of appends) {
+      if (word + append == input || input + append == word) return true
+   }
+   return false
 }
 
 async function updateWordStatus(pId, wId, dueTime, phase) {
@@ -139,18 +147,10 @@ async function updateWordStatus(pId, wId, dueTime, phase) {
 function getDueTime(phase) {
    // const DAY_MS = 24 * 60 * 60 * 1000
    const MINUTE = 1000 * 60
-   switch (phase) {
-      case 0:
-         return Date.now() + MINUTE * 3
-      case 1:
-         return Date.now() + MINUTE * 10
-      case 2:
-         return Date.now() + MINUTE * 20
-      case 3:
-         return Date.now() + MINUTE * 40
-      default:
-         return Date.now() + MINUTE * 80
-   }
+   const HOUR = MINUTE * 60
+   const DAY = HOUR * 24
+
+   return Date.now() + settings[`phase_${phase < 4 ? phase : 'default'}_time`]*MINUTE
 }
 
 export default Question
