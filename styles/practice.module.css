@@ -44,7 +44,7 @@
    width: 100%;
    line-height: 20px;
    transition: opacity .4s ease-in;
-   height: 20rem;
+   min-height: 20rem;
 }
 .word_definition {
    margin-bottom: 8px;
