@@ -25,13 +25,13 @@ function Vocabulary({ session, userLists, globalLists }) {
       }
       session && f()
    }, [lists])
-   const { categorizedLists, categorizedWords } = categorizeUserLists(lists)
    
    if (!session) {
       signIn()
       return ''
    }
-
+   
+   const { categorizedLists, categorizedWords } = categorizeUserLists(lists)
    const organizedLists = organizeListsByParent(globalLists)
 
    return (
