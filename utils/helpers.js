@@ -89,3 +89,7 @@ export function sorted(array, callback) {
     arr.sort(callback)
     return arr
 }
+
+export function randomRange(a,b) {
+    return a + Math.floor(Math.random() * (b-a)) 
+}

@@ -5,9 +5,8 @@ import { IoIosArrowDroprightCircle } from 'react-icons/io'
 import { HiCheckCircle } from 'react-icons/hi'
 import axios from 'axios'
 import WordDescribtion from './WordDescribtion'
-import settings from 'data/settings.json'
 import { useRef } from 'react'
-
+import { PHASE_TIMING } from 'data/settings'
 
 function Question({
    word,
@@ -112,6 +111,7 @@ function Question({
             </Button>
          </form>
          <WordDescribtion word={word} visible={cheated} />
+         <div style={{height: '1rem'}}></div>
       </div>
    )
 }
@@ -149,8 +149,8 @@ function getDueTime(phase) {
    const MINUTE = 1000 * 60
    const HOUR = MINUTE * 60
    const DAY = HOUR * 24
-
-   return Date.now() + settings[`phase_${phase < 4 ? phase : 'default'}_time`]*MINUTE
+   const _phase = PHASE_TIMING[phase] ? phase : 'default'
+   return Date.now() + PHASE_TIMING[_phase]*DAY
 }
 
 export default Question

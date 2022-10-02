@@ -1,4 +1,6 @@
+import { USER_BASE_PHASE } from 'data/settings';
 import mongoose from 'mongoose'
+
 
 const Schema = mongoose.Schema;
 
@@ -21,7 +23,7 @@ const UserListSchema = new Schema({
         },
         phase: {
             type: Number,
-            default: 2,
+            default: USER_BASE_PHASE,
         }
     }],
 })

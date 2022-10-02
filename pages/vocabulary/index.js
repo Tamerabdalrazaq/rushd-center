@@ -3,6 +3,7 @@ import Link from 'next/link'
 import ListRow from 'components/vocabulary/ListRow'
 import ProgressBar from 'components/vocabulary/ProgressBar'
 import ListsSection from 'components/vocabulary/ListsSection'
+import WordsTable from 'components/vocabulary/WordsTable'
 import styles from 'styles/vocabulary.module.css'
 import Button from '@mui/material/Button'
 import { authOptions } from 'pages/api/auth/[...nextauth]'
@@ -10,19 +11,22 @@ import { unstable_getServerSession } from 'next-auth'
 import { categorizeUserLists, collectWords, getUserData } from 'utils/api/client_api'
 import { joinObjectFields, organizeListsByParent } from 'utils/helpers'
 import { signIn } from 'next-auth/react'
-import WordsTable from 'components/vocabulary/WordsTable'
 
-function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
+function Vocabulary({ session, userLists, globalLists }) {
    const [populatedWords, setPopulatedWords] = useState([])
    const [lists, setLists] = useState(userLists)
-   const { categorizedLists } = categorizeUserLists(lists)
+   const [loading, setLoading] = useState(false)
+   const { categorizedLists, categorizedWords } = categorizeUserLists(lists)
+   console.log(loading);
    useEffect(() => {
       async function f() {
+         setLoading(true)
          const data = await collectWords(joinObjectFields(categorizedWords))
          setPopulatedWords(data)
+         setLoading(false)
       }
       session && f()
-   }, [])
+   }, [lists])
 
    if (!session) {
       signIn()
@@ -76,14 +80,12 @@ function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
                      </div>
                   ) : (
                      <div className={styles.emptyList}>
-                        <h3>Your List Is Empty :(</h3>
-                        <Button variant="contained" color="primary">
-                           Add My First List
-                        </Button>
+                        <h3>Your are not subscribed to any list yet :(</h3>
+                        <h3>Please Add your first list ↓</h3>
                      </div>
                   )}
                </div>
-               <WordsTable wordsArray={categorizedWords} populatedWords={populatedWords} />
+               <WordsTable loading={loading} wordsArray={categorizedWords} populatedWords={populatedWords} />
             </div>
          </main>
          {Object.keys(organizedLists).map((parent) => (
@@ -92,6 +94,7 @@ function Vocabulary({ session, userLists, categorizedWords, globalLists }) {
                name={parent}
                lists={organizedLists[parent]}
                updateLists={setLists}
+               userLists={lists}
             />
          ))}
       </div>

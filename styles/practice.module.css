@@ -17,7 +17,7 @@
    border-radius: 10px;
    box-shadow: 0px 0px 29px -5px #000000;
    width: 32rem;
-   height: 40rem;
+   height: 39rem;
    position: relative;
 }
 
@@ -31,6 +31,7 @@
 .content {
    height: 100%;
    flex-direction: column;
+   gap: 2rem;
    justify-content: flex-start;
 }
 
@@ -44,7 +45,8 @@
    width: 100%;
    line-height: 20px;
    transition: opacity .4s ease-in;
-   min-height: 20rem;
+   height: 20rem;
+   overflow-y: scroll;
 }
 .word_definition {
    margin-bottom: 8px;
@@ -272,5 +274,8 @@
    }
    .word_example_p {
       font-size: 1.8rem;
+   }
+   .css-1rwt2y5-MuiButtonBase-root-MuiButton-root{
+      font-size: 30px !important ; 
    }
 }

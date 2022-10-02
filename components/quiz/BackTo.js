@@ -3,10 +3,10 @@ import Link from 'next/link'
 import Button from '@mui/material/Button'
 import { GrLinkNext } from 'react-icons/gr'
 
-function BackTo({to}) {
+function BackTo({to, style}) {
    return (
       <Link href={"/"+to}>
-         <Button variant="outlined" color="primary">
+         <Button  variant="outlined" color="primary">
             Back to {to} <GrLinkNext />
          </Button>
       </Link>

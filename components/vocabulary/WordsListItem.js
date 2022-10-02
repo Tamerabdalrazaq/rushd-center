@@ -2,20 +2,27 @@ import Button from '@mui/material/Button'
 import axios from 'axios'
 import { useState, useContext } from 'react'
 import { StatsContext } from 'context/UserStats'
+import { useAlert } from 'react-alert'
 import styles from 'styles/listsection.module.css'
 
-function WordsListItem({ list, updateLists }) {
+function WordsListItem({ list, updateLists, userLists }) {
+   const alert = useAlert()
    const [hovered, setHovered] = useState(false)
    const statsContext = useContext(StatsContext)
    const { USER_ID } = statsContext
    
    async function subscribeUser() {
         try{
+         if(!userLists.find((lst) => lst.originalList === list._id)) {
             const res = await axios.post('/api/users/subscriptions', {
                 userId: USER_ID,
                 listId: list._id,
             })
             updateLists(res.data.subscribed_lists)
+            alert.show('Successfully Subscribed to '+ list.name, {type: 'success'})
+         } else {
+            alert.show('Your are Already Subscribed to This List', {type: 'error'})
+         }
         } catch(e) {
             alert('An error has occured')
         }

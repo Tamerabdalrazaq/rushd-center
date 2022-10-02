@@ -7,35 +7,34 @@ import Loading from 'components/global/Loading'
 import FinishedQuiz from './FinishedQuiz'
 import BackTo from './BackTo'
 import { collectWords } from 'utils/api/client_api'
-
-
-const QUESTIONS_PER_ROUND = 12
-const QUESTION_REPEAT_STEP = 3
+import { randomRange } from 'utils/helpers'
+import { QUESTION_REPEAT_STEP_RANGE } from 'data/settings'
 
 function Quiz({ data: { categorizedWords, categorizedLists } }) {
    const router = useRouter()
+   const [loading, setLoading] = useState(true)
    const [wordsArray, setWordsArray] = useState(null)
    const [gameArray, setGameArray] = useState([])
    const [question, setQusetion] = useState(0)
    const reviewedWords = useRef()
-   console.log(gameArray);
 
    async function fetchWords(relevantWords) {
-      try{
+      try {
          let words = await collectWords(relevantWords)
          const filteredRelevantWords = relevantWords.filter((gameWord) =>
             words.find((foundWord) => foundWord._id === gameWord._id)
          )
          setWordsArray(words)
          setGameArray(filteredRelevantWords)
-      } catch(e) {
-         console.log(e);
+         setLoading(false)
+      } catch (e) {
+         console.log(e)
          alert('An Error Has Occured!')
       }
    }
 
    useEffect(() => {
-         fetchWords(getRelevantWords())
+      fetchWords(getRelevantWords())
    }, [])
 
    function next(cheated) {
@@ -46,11 +45,11 @@ function Quiz({ data: { categorizedWords, categorizedLists } }) {
    return (
       <div className={`${styles.container}`}>
          <div className={styles.back_button}>
-            <BackTo to={'vocabulary'} />
+            <BackTo to={'vocabulary'} style={{ fontSize: '1.6rem' }} />
          </div>
          <div className={`${styles.content} ccter`}>
             {(() => {
-               if (gameArray.length && wordsArray) {
+               if (gameArray.length && !loading) {
                   if (gameArray.length <= question)
                      return (
                         <FinishedQuiz reviewedWords={reviewedWords.current} />
@@ -71,9 +70,9 @@ function Quiz({ data: { categorizedWords, categorizedLists } }) {
                         />
                      </>
                   )
-               }
-
-               return <Loading />
+               } else 
+                  return loading ? <Loading /> : 
+                  <FinishedQuiz reviewedWords={'All'} />
             })()}
          </div>
       </div>
@@ -98,14 +97,16 @@ function Quiz({ data: { categorizedWords, categorizedLists } }) {
 
    function getGameArray(isWrong) {
       if (!isWrong) return gameArray
-      const currentWord = {...gameArray[question], replicated: true}
+      const currentWord = { ...gameArray[question], replicated: true }
       const newGameArray = [...gameArray]
+      const repeat_step = randomRange(...QUESTION_REPEAT_STEP_RANGE)
       const newWordIndex =
-         question + QUESTION_REPEAT_STEP >= gameArray.length
+         question + repeat_step >= gameArray.length
             ? gameArray.length
-            : question + QUESTION_REPEAT_STEP
-            console.log(currentWord);
+            : question + repeat_step
+      console.log(question, repeat_step, newWordIndex);
       newGameArray.splice(newWordIndex, 0, currentWord)
+      newGameArray.push(currentWord)
       return newGameArray
    }
 }

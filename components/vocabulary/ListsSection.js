@@ -1,7 +1,7 @@
 import styles from 'styles/listsection.module.css'
 import WordsListItem from './WordsListItem'
 
-function ListsSection({ lists, updateLists, name }) {
+function ListsSection({ lists, updateLists, name, userLists }) {
    return (
       <div className={`${styles.wrapper} ccter`}>
          <div className={styles.content}>
@@ -14,6 +14,7 @@ function ListsSection({ lists, updateLists, name }) {
                      key={list._id}
                      list={list}
                      updateLists={updateLists}
+                     userLists={userLists}
                   />
                ))}
             </div>

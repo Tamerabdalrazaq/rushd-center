@@ -1,4 +1,5 @@
 import Circle from 'components/global/Circle'
+import Loading from 'components/global/Loading'
 import React, { useState, useEffect, useRef } from 'react'
 import {
    findObjectById,
@@ -7,11 +8,13 @@ import {
    sorted,
 } from 'utils/helpers'
 
-function WordsTable({ wordsArray, populatedWords }) {
+function WordsTable({ wordsArray, populatedWords, loading }) {
    const tableRef = useRef()
    // useEffect(() => tableRef.current.scrollTop = tableRef.current.scrollHeight,[])
    return (
       <div id="words-table-wrapper">
+         {
+            loading ? <Loading /> :
          <div id="table-scroll" ref={tableRef}>
             <table id="table">
                <thead>
@@ -47,6 +50,7 @@ function WordsTable({ wordsArray, populatedWords }) {
                </tbody>
             </table>
          </div>
+         }
       </div>
    )
 }

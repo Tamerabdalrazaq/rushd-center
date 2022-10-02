@@ -6,6 +6,12 @@
     width: 75%;
 }
 
+.secTitle{
+    border-top: 2px solid var(--default-dark);
+    font-size: 1.45rem;
+    margin-top: 1rem;
+}
+
 .listsGrid{
     margin-top: 1rem;
     width: 100%;
@@ -67,7 +73,13 @@
     font-size: 1rem;
 }
 
+@media screen and (max-width: 1200px) {
+    .listsGrid{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
 @media screen and (max-width: 500px) {
+    
     .content{
         width: 92%;
     }
