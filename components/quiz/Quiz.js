@@ -104,7 +104,6 @@ function Quiz({ data: { categorizedWords, categorizedLists } }) {
          question + repeat_step >= gameArray.length
             ? gameArray.length
             : question + repeat_step
-      console.log(question, repeat_step, newWordIndex);
       newGameArray.splice(newWordIndex, 0, currentWord)
       newGameArray.push(currentWord)
       return newGameArray
