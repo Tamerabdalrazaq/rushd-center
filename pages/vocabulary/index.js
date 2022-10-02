@@ -16,8 +16,6 @@ function Vocabulary({ session, userLists, globalLists }) {
    const [populatedWords, setPopulatedWords] = useState([])
    const [lists, setLists] = useState(userLists)
    const [loading, setLoading] = useState(false)
-   const { categorizedLists, categorizedWords } = categorizeUserLists(lists)
-   console.log(loading);
    useEffect(() => {
       async function f() {
          setLoading(true)
@@ -27,7 +25,8 @@ function Vocabulary({ session, userLists, globalLists }) {
       }
       session && f()
    }, [lists])
-
+   const { categorizedLists, categorizedWords } = categorizeUserLists(lists)
+   
    if (!session) {
       signIn()
       return ''
