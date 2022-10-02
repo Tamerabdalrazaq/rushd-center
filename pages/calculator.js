@@ -1,4 +1,6 @@
 import CalculatorComponent from 'components/calculator/Calculator'
+import Report from 'components/calculator/Report'
+import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 
 function Calculator() {
@@ -14,17 +16,13 @@ function Calculator() {
   return (
     <div>
       <div className={`calc-page-wrapper ${blurred? 'blurred': ''}`}>
-        {/* <div className='calc-title'>
-          <h1 className="ccter"> أهلا {session? session.user.name:''} في الحاسبة الذكيّة  <GrCalculator /> </h1>
-        </div> */}
         <CalculatorComponent setBlurred={setBlurred} punch={punch} setShowReport={setShowReport} togglePuch={togglePuch}/> 
         {punch && (
           <div style={{width: '20%'}}></div>
         )}
       </div>
       {
-        showReport && null
-        // <Report data={showReport} hideReport={hideReport}/>
+        showReport && <Report data={showReport} hideReport={hideReport}/>
       }
     </div>
   )
