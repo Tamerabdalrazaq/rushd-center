@@ -14,6 +14,7 @@
     "@mui/material": "^5.10.7",
     "@next-auth/mongodb-adapter": "^1.1.0",
     "axios": "^0.27.2",
+    "framer-motion": "^7.5.1",
     "mongodb": "^4.10.0",
     "mongoose": "^6.6.2",
     "next": "12.3.1",

@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800;900&display=swap');
 
 :root {
-  --main-dark: #1DAFFF;
-  --main-reg: #73BBE2;
-  --main-light: #97D3F4;
+  --main-dark: #1b85e5;
+  --main-reg: #1DAFFF;
+  --main-light: #73BBE2;
   --sec-reg: #FF6F66;
   --sec-light: #FFA49E;
   --tertiary-reg: #3f51b5;
@@ -15,6 +15,7 @@
   --circle-remaining:rgb(208, 208, 208);
   --circle-reviewed:rgb(32, 200, 79);
   --default-dark: rgb(40, 40, 40);
+  --default-grey: rgb(165, 165, 165);
 }
 
 html{

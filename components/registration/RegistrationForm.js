@@ -79,7 +79,7 @@ function RegistrationForm() {
                   value={phone}
                   type="number"
                   pattern="[0-9]*"
-                  inputmode="numeric"
+                  inputMode="numeric"
                   autoComplete='tel'
                   onChange={(e) => setPhone(e.target.value)}
                />

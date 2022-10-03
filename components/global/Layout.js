@@ -1,4 +1,4 @@
-import Navbar from './Navbar'
+import Navbar from './navbar/Navbar'
 import { StatsProvider } from '../../context/UserStats'
 import Head from 'next/head'
 import { useRouter } from 'next/dist/client/router'

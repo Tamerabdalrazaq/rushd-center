@@ -95,6 +95,14 @@
    font-size: 1.2rem;
 }
 
+.lists_section{
+   width: 100%;
+}
+
+.lists_section h2{
+   font-size: 1.7rem;
+}
+
 @media screen and (max-width: 1100px) {
    .wrapper {
       direction: ltr;
@@ -109,8 +117,8 @@
       width: 100%;
       border: none;
       box-shadow: none;
-      border-bottom: 0.003px solid rgb(165, 165, 165);
-      border-top: 0.003px solid rgb(165, 165, 165);
+      border-bottom: 0.003px solid var(--default-grey);
+      border-top: 0.003px solid var(--default-grey);
    }
 }
 @media screen and (max-width: 500px) {
@@ -123,8 +131,8 @@
       border: none;
       box-shadow: none;
       font-size: 2rem;
-      border-bottom: 0.003px solid rgb(165, 165, 165);
-      border-top: 0.003px solid rgb(165, 165, 165);
+      border-bottom: 0.003px solid var(--default-grey);
+      border-top: 0.003px solid var(--default-grey);
    }
 
    .listRowContainer {

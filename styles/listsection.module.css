@@ -7,9 +7,10 @@
 }
 
 .secTitle{
-    border-top: 2px solid var(--default-dark);
+    border-top: 1px solid var(--default-grey);
     font-size: 1.45rem;
     margin-top: 1rem;
+    padding-top: 1rem;
 }
 
 .listsGrid{
