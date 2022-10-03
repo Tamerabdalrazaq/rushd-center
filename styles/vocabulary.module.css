@@ -2,7 +2,7 @@
    direction: ltr;
    padding: 1rem;
    background-color: #f3f3f3;
-   min-height: 100vh;
+   min-height: calc(100vh - 5rem);
 }
 
 .main {
@@ -121,7 +121,13 @@
       border-top: 0.003px solid var(--default-grey);
    }
 }
+@media screen and (max-width: 650px) {
+   .wrapper{
+      min-height: calc(100vh - 8rem);
+   }
+}
 @media screen and (max-width: 500px) {
+
    .main h1 {
       font-size: 2.8rem;
    }

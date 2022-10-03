@@ -31,3 +31,10 @@
     opacity: .5;;
     z-index: -1;
 }
+
+@media screen and (max-width: 650px) {
+    .page{
+      height: calc(100vh - 8rem);
+      min-height: 0;
+    }
+}

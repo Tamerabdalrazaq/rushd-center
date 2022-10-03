@@ -269,7 +269,10 @@ button {
   html{
     font-size: calc(1vw + 3px);
   }
-
+  .calc-page-wrapper{
+    height: calc(100vh - 8rem);
+    min-height: 0;
+  }
   .calc-main {
     width: 100%;
   }
