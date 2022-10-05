@@ -99,6 +99,9 @@
 .sidemenu_header_left h4{
     display: flex;
     align-items: center;
+    text-align: left;
+    margin-left: 4px;
+    font-size: 2.2rem;
     font-weight: 600;
 }
 
@@ -160,13 +163,13 @@
     top: 0;
     left: 0;
 }
-@media screen and (min-width: 650px) {
+@media screen and (min-width: 700px) {
     .hamburger_menu{
         display: none;
     }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 700px) {
     .nav{
         height: 8rem;
     }

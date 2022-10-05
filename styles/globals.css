@@ -16,6 +16,8 @@
   --circle-reviewed:rgb(32, 200, 79);
   --default-dark: rgb(40, 40, 40);
   --default-grey: rgb(165, 165, 165);
+  --light-grey: rgb(240, 240, 240);
+  --lighter-grey: rgb(247, 247, 247);
 }
 
 html{
@@ -41,9 +43,37 @@ a {
 button {
   padding: .5rem 1.6rem;
   outline: none;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   border: none;
+  background-color: transparent;
   cursor: pointer;
+}
+
+._global_button{
+  padding: 0.6em 0.9em;
+  font-size: 1em;
+  outline: none;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight:200;
+  letter-spacing: 2px;
+  border: 1.5px solid var(--main-dark);
+  transition: all 0.1s ease-in;
+}
+
+._global_button:hover{
+  background-color: var(--lighter-grey);
+}
+
+._global_button_primary{
+  border-color: var(--main-dark);
+  color: var(--main-dark);
+}
+._global_button_reddish{
+  border-color: var(--forth-light);
+  color: var(--forth-light);
 }
 
 .ccter {

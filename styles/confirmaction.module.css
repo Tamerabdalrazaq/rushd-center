@@ -1,0 +1,49 @@
+.container{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg-main);
+    width: 24em;
+    min-height: 4em;
+    padding: 2em;
+    z-index: 99;
+    border-radius: .5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2em;
+}
+
+.msg{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+}
+
+.actions {
+    display: flex;
+    gap: 1em;
+}
+
+.shader_div{
+    height: 100%;
+    width: 100%;
+    z-index: 98;
+    position: fixed;
+    background-color: #949da276;
+    transition: all 1s;
+    filter: blur(0);
+    top: 0;
+    left: 0;
+}
+
+@media screen and (max-width: 650px) {
+    .container{
+        width: 100%;
+        font-size: 18px;
+    }    
+}

@@ -15,6 +15,7 @@ import {
 } from 'utils/api/client_api'
 import { joinObjectFields, organizeListsByParent } from 'utils/helpers'
 import { style } from '@mui/system'
+import ConfirmAction from 'components/global/ConfirmAction'
 
 function Vocabulary({ session, userLists, globalLists }) {
    const [populatedWords, setPopulatedWords] = useState([])
