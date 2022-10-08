@@ -1,5 +1,5 @@
 .wrapper{
-    margin-top: 2rem;
+    margin-top: 2em;
 }
 
 .content{
@@ -8,25 +8,29 @@
 
 .secTitle{
     border-top: 1px solid var(--default-grey);
-    font-size: 1.45rem;
-    margin-top: 1rem;
-    padding-top: 1rem;
+    font-size: 1.45em;
+    padding-top: 1em;
+}
+
+.secTitle h2{
+    font-size: 1.1em;
+
 }
 
 .listsGrid{
-    margin-top: 1rem;
+    margin-top: 1em;
+    margin-bottom: 2em;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-auto-rows: 10rem;
-    gap: 2rem;
-    margin-bottom: 4rem;
+    grid-auto-rows: 10em;
+    gap: 2em;
 }
 
 .wordsListItem{
     overflow: hidden;
     position: relative;
-    border-radius: .5rem;
+    border-radius: .5em;
     width: 100%;
     height: 100%;
     color: #f3f3f3;
@@ -46,7 +50,7 @@
 }
 
 .initial {
-    height: 2rem;
+    height: 2em;
     background-color:#3f51b5c2;
 }
 
@@ -55,12 +59,12 @@
     background-color:#3f51b5a7;
     flex-direction: column;
     transition: all .4s;
-    gap: .5rem;
+    gap: .5em;
 }
 
 .hovered h2{
     border-bottom: 2px solid #000000;
-    padding: .4rem 0;
+    padding: .4em 0;
 }
 
 .initial h3{
@@ -71,7 +75,7 @@
     width: 100%;
     background-color: var(--forth-reg);
     color: var(--bg-main);
-    font-size: 1rem;
+    font-size: 1em;
 }
 
 @media screen and (max-width: 1200px) {
@@ -79,15 +83,17 @@
         grid-template-columns: repeat(3, 1fr);
     }
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 650px) {
     
     .content{
         width: 92%;
+        font-size: 12px;
     }
     .MuiButtonBase-root{
         width: 80%;
     }
     .listsGrid{
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 8em;
     }
 }

@@ -93,3 +93,14 @@ export function sorted(array, callback) {
 export function randomRange(a,b) {
     return a + Math.floor(Math.random() * (b-a)) 
 }
+
+export function shuffledArray(array) {
+    const shuffled = [...array]
+    for (var i = shuffled.length - 1; i > 0; i--) {
+       var j = Math.floor(Math.random() * (i + 1))
+       var temp = shuffled[i]
+       shuffled[i] = shuffled[j]
+       shuffled[j] = temp
+    }
+    return shuffled
+ }

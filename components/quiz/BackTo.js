@@ -1,14 +1,18 @@
 import React from 'react'
 import Link from 'next/link'
-import Button from '@mui/material/Button'
 import { GrLinkNext } from 'react-icons/gr'
+import Button from 'components/global/Button'
 
-function BackTo({to, style}) {
+function BackTo({ to, type, component }) {
    return (
-      <Link href={"/"+to}>
-         <Button  variant="outlined" color="primary">
-            Back to {to} <GrLinkNext />
-         </Button>
+      <Link href={'/' + to}>
+         {type == 'text' ? (
+            <Button >
+               Back to {to} <GrLinkNext />
+            </Button>
+         ) : (
+            component
+         )}
       </Link>
    )
 }

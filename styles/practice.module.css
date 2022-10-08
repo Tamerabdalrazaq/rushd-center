@@ -6,10 +6,6 @@
    padding: 1.5rem;
 }
 
-.page * {
-   padding: 0;
-   margin: 0;
-}
 
 .container {
    flex-direction: column;
@@ -17,15 +13,16 @@
    border-radius: 10px;
    box-shadow: 0px 0px 29px -5px #000000;
    width: 32rem;
-   height: 39rem;
+   min-height: 39rem;
    position: relative;
 }
 
 .back_button {
    position: absolute;
-   bottom: 1rem;
-   left: 50%;
+   bottom: 2px;
+   right: 0em;
    transform: translateX(-50%);
+   font-size: 2rem;
 }
 
 .content {
@@ -41,11 +38,22 @@
    text-align: center;
 }
 
+.switchWrapper{
+   position: absolute;
+   bottom: 2px;
+}
+
+.switchIcon{
+   font-size: 2rem;
+   color: #fff;
+}
+
+
 .word_definitions {
    width: 100%;
    line-height: 20px;
    transition: opacity .4s ease-in;
-   height: 20rem;
+   height: 10rem;
    overflow-y: scroll;
 }
 .word_definition {
@@ -189,6 +197,34 @@
    border-color: rgb(44, 169, 3) !important;
 }
 
+
+/* Grid Question */
+.gridQuestion_container{
+   gap: 1.8em;
+}
+
+
+.answersGrid{
+   display: grid;
+   grid-template-columns: repeat(2, 8em);
+   grid-auto-rows: 8em;
+   gap: 1em;
+}
+
+.answer_option{
+   padding: 1em 0.2em;
+   text-align: center;
+   font-size: 1.2em;
+   font-weight: bolder;
+   border-width: 0.2em;
+   background-color: var(--light-grey);
+   border-radius: 1px;
+   letter-spacing: 0;
+   /* padding: 1rem 2rem;
+   border-radius: 1rem; */
+}
+
+
 /* Finished Quiz */
 
 .finishedQuizContainer {
@@ -209,7 +245,7 @@
    opacity: 0;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 650px) {
    .page {
       padding: 0;
       width: 100vw;
@@ -238,6 +274,9 @@
       border-radius: 0.8rem;
       overflow: hidden;
    }
+   .back_button{
+      font-size: 5rem;
+   }
    .questionBody {
       justify-content: flex-start;
       gap: 3rem;
@@ -262,12 +301,16 @@
       /* padding: 4em 5em; */
       border-width: 2px;
    }
-   .form button span {
-      font-size: 1.85em;
+   .shrugging_span {
+      font-size: 25px;
    }
 
    .finishedQuizContainer {
       font-size: 12px;
+   }
+/* Word Definitions */
+   .word_definitions{
+      height: 25rem;
    }
    .word_definition_p {
       font-size: 2rem;
@@ -277,5 +320,15 @@
    }
    .css-1rwt2y5-MuiButtonBase-root-MuiButton-root{
       font-size: 30px !important ; 
+   }
+
+   /* Grid */
+   .gridQuestion_container{
+      font-size: 15px;
+   }   
+
+   /* Switch */
+   .switchIcon{
+      font-size: 30px;
    }
 }

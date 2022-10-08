@@ -9,7 +9,8 @@ const ListSchema = new Schema({
         trim: true,
     },
     parent: String,
-    words: [mongoose.ObjectId]
+    words: [mongoose.ObjectId],
+    imgSrc: String
 })
 
 module.exports = mongoose.models.List || mongoose.model("List", ListSchema);

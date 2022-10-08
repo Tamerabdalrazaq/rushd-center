@@ -49,6 +49,8 @@
    border-radius: 0.3rem;
    box-shadow: 0px 0px 30px -15px #000000;
    gap: 1.5rem;
+   max-height: 30em;
+   overflow-y: scroll;
 }
 .myListsTitle h2 {
    /* background-color: #ffffff4c; */
@@ -72,12 +74,18 @@
 
 .leftWrapper {
    display: flex;
-   gap: 1.7rem;
+   gap: 1rem;
 }
 
 .leftWrapper h4 {
    font-weight: 500;
-   font-size: 1.55rem;
+   font-size: 1.2em;
+   margin-bottom: 3px;
+}
+.leftWrapper h6 {
+   font-size: .75em;
+   margin-bottom: 1.5px;
+   color: var(--default-dark);
 }
 .rightWrapper {
    display: flex;
@@ -97,10 +105,6 @@
 
 .lists_section{
    width: 100%;
-}
-
-.lists_section h2{
-   font-size: 1.7rem;
 }
 
 @media screen and (max-width: 1100px) {

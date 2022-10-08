@@ -76,10 +76,26 @@ button {
   color: var(--forth-light);
 }
 
-.ccter {
+.ccter, .ccter-col {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.ccter-col{
+  flex-direction: column;
+}
+
+.abs_topright{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.abs_center{
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
 }
 
 /* calculator */
@@ -351,6 +367,9 @@ button {
   }
   .MuiButtonBase-root{
     font-size: 1.8rem;
+  }
+  ._global_button{
+    font-size: 18px;
   }
 }
 

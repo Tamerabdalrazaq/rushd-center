@@ -11,25 +11,29 @@ main().catch((err) => console.log(err))
 
 async function main() {
    await mongoose.connect(MONGODB)
-   await add_new_words()
+   const { green_art_literature:list } = data
+   const parent_id = await createNewList(list.list)
+   await add_new_words(list.words, parent_id )
    console.log('done')
 }
 
-async function add_new_words() {
-   const n = data.length
+async function createNewList(list_obj) {
+   const list = new List(list_obj)
+   await list.save()
+   return list._id
+}
+
+async function add_new_words(words, parent_id) {
+   const n = words.length
    for (let i = 0; i < n; i++) {
-      await createNewWord(data[i])
+      await createNewWord(words[i], parent_id)
       await timeout(350)
       console.log('done ', i)
    }
 }
 
-async function createNewList(name, parent) {
-   const list = new List({ name, parent })
-   await list.save()
-}
 
-async function createNewWord({ word, meaning, parent: parent_id }) {
+async function createNewWord({ word, meaning }, parent_id) {
    try {
       let word_object = { word, meaning }
       word_object = await populateWord(word_object)
@@ -71,7 +75,10 @@ async function populateWord(word) {
       const res = { ...word, ...word_data }
       return res
    } catch (e) {
+      console.log('Error in word: ');
+      console.log(word);
       console.log(e)
+      return word
    }
 }
 

@@ -8,7 +8,7 @@ import { RiFileListFill } from 'react-icons/ri'
 import ProgressBar from './ProgressBar'
 import ConfirmAction from 'components/global/ConfirmAction'
 
-function ListRow({ list, setLists, categorizedList }) {
+function ListRow({ list, setLists, categorizedList, originalList }) {
    const statsContext = useContext(StatsContext)
    const [confirmAction, setConfirmAction] = useState(false)
    const { USER_ID } = statsContext
@@ -38,7 +38,8 @@ function ListRow({ list, setLists, categorizedList }) {
                <div className={styles.listRowName}>
                   <h4>{list.name}</h4>
                   <div>
-                     <h6>{list.wordsList.length} Words</h6>
+                     <h6>{originalList.parent}</h6>
+                     {/* <h6>{list.wordsList.length} Words</h6> */}
                   </div>
                </div>
             </div>

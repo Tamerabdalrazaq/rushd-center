@@ -10,7 +10,7 @@ function FinishedQuiz({ reviewedWords }) {
                 <h2>You&apos;ve Reviewed {reviewedWords} Words!</h2>
             </div>
             <div>
-                <BackTo to={'vocabulary'} />
+                <BackTo to={'vocabulary'} type={'text'} />
             </div>
         </div>
     )

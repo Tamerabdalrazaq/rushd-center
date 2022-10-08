@@ -13,7 +13,7 @@ import {
    collectWords,
    getUserData,
 } from 'utils/api/client_api'
-import { joinObjectFields, organizeListsByParent } from 'utils/helpers'
+import { findObjectById, joinObjectFields, organizeListsByParent } from 'utils/helpers'
 import { style } from '@mui/system'
 import ConfirmAction from 'components/global/ConfirmAction'
 
@@ -91,6 +91,7 @@ function Vocabulary({ session, userLists, globalLists }) {
                                     list={list}
                                     setLists={setLists}
                                     categorizedList={categorizedLists[list._id]}
+                                    originalList={findObjectById(globalLists, list.originalList)}
                                  />
                               ))}
                            </div>

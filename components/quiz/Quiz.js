@@ -1,14 +1,18 @@
 import { useEffect, useState, useRef } from 'react'
 import QuizProgressBar from './QuizProgressBar'
-import Question from 'components/quiz/Question'
 import styles from 'styles/practice.module.css'
 import { useRouter } from 'next/dist/client/router'
 import Loading from 'components/global/Loading'
 import FinishedQuiz from './FinishedQuiz'
 import BackTo from './BackTo'
 import { collectWords } from 'utils/api/client_api'
-import { randomRange } from 'utils/helpers'
+import { randomRange, shuffledArray } from 'utils/helpers'
 import { QUESTION_REPEAT_STEP_RANGE } from 'data/settings'
+import Question from 'components/quiz/Question'
+import { trimWordsList } from 'utils/quiz_utils'
+import { ImExit } from 'react-icons/im'
+import useMediaQuery from 'utils/Custom Hooks/useMediaQuery'
+import Switch from './Switch'
 
 function Quiz({ data: { categorizedWords, categorizedLists } }) {
    const router = useRouter()
@@ -16,7 +20,9 @@ function Quiz({ data: { categorizedWords, categorizedLists } }) {
    const [wordsArray, setWordsArray] = useState(null)
    const [gameArray, setGameArray] = useState([])
    const [question, setQusetion] = useState(0)
+   const [gridQuiz, setGridQuiz] = useState(true)
    const reviewedWords = useRef()
+   const isPhoneScreen = useMediaQuery('max', 'width', 650)
 
    async function fetchWords(relevantWords) {
       try {
@@ -44,9 +50,14 @@ function Quiz({ data: { categorizedWords, categorizedLists } }) {
 
    return (
       <div className={`${styles.container}`}>
-         <div className={styles.back_button}>
-            <BackTo to={'vocabulary'} style={{ fontSize: '1.6rem' }} />
-         </div>
+         <BackTo
+            to={'vocabulary'}
+            type={'component'}
+            component={<ImExit className={styles.back_button} />}
+         />
+         {isPhoneScreen != null && (
+            <Switch setGridQuiz={setGridQuiz} isPhoneScreen={isPhoneScreen} gridQuiz={gridQuiz} />
+         )}
          <div className={`${styles.content} ccter`}>
             {(() => {
                if (gameArray.length && !loading) {
@@ -63,16 +74,21 @@ function Quiz({ data: { categorizedWords, categorizedLists } }) {
                            word={wordsArray.find(
                               (word) => word._id === gameArray[question]._id
                            )}
+                           wordsArray={wordsArray}
                            questionNum={question}
                            userListWord={gameArray[question]}
                            next={next}
                            replicated={gameArray[question].replicated}
+                           gridQuiz={gridQuiz}
                         />
                      </>
                   )
-               } else 
-                  return loading ? <Loading /> : 
-                  <FinishedQuiz reviewedWords={'All'} />
+               } else
+                  return loading ? (
+                     <Loading />
+                  ) : (
+                     <FinishedQuiz reviewedWords={'All'} />
+                  )
             })()}
          </div>
       </div>
@@ -92,7 +108,7 @@ function Quiz({ data: { categorizedWords, categorizedLists } }) {
             categorizedLists[relevantListId].needReview
          )
       reviewedWords.current = relevantList.length
-      return shuffleArray(relevantList)
+      return shuffledArray(relevantList)
    }
 
    function getGameArray(isWrong) {
@@ -108,42 +124,6 @@ function Quiz({ data: { categorizedWords, categorizedLists } }) {
       newGameArray.push(currentWord)
       return newGameArray
    }
-}
-
-function trimWordsList(remainingList, needReviewList) {
-   let sortedNeedReview = needReviewList.sort((a, b) => a.dueTime - b.dueTime)
-   let finalArray
-   if (remainingList.length + needReviewList.length <= 12)
-      finalArray = [...sortedNeedReview, ...remainingList]
-   else {
-      if (remainingList.length < 6) {
-         finalArray = [
-            ...remainingList,
-            ...sortedNeedReview.slice(0, 12 - remainingList.length),
-         ]
-      } else if (sortedNeedReview.length < 6) {
-         finalArray = [
-            ...sortedNeedReview,
-            ...remainingList.slice(0, 12 - sortedNeedReview.length),
-         ]
-      } else {
-         finalArray = [
-            ...sortedNeedReview.slice(0, 6),
-            ...remainingList.slice(0, 6),
-         ]
-      }
-   }
-   return finalArray
-}
-
-function shuffleArray(array) {
-   for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1))
-      var temp = array[i]
-      array[i] = array[j]
-      array[j] = temp
-   }
-   return array
 }
 
 export default Quiz
