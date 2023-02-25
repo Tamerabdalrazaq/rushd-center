@@ -1,6 +1,6 @@
 import ConfirmAction from 'components/global/ConfirmAction'
 import React, { useState, useEffect, useRef } from 'react'
-import styles from 'styles/components/NewList.module.css'
+import styles from 'styles/components/newList.module.css'
 import {
    findObjectById,
 } from 'utils/helpers'

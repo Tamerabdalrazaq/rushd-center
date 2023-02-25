@@ -52,7 +52,6 @@ function Vocabulary({ session, userLists, globalLists }) {
 
    return (
       <div className={styles.wrapper}>
-         <NewList />
          <main className={`${styles.main} ccter`}>
             <div className={styles.headingMain}>
                <h1>My vocabulary</h1>
