@@ -26,6 +26,10 @@ const UserListSchema = new Schema({
             default: USER_BASE_PHASE,
         }
     }],
+    custom: {
+        required: true,
+        type: String,
+    }
 })
 
 module.exports = mongoose.models.UserList || mongoose.model("UserList", UserListSchema);

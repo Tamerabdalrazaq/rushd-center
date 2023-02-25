@@ -20,6 +20,15 @@ function ListRow({ list, setLists, categorizedList, originalList }) {
                userListId: list._id,
             },
          })
+
+         console.log(list)
+         if(list.custom) {
+            axios.delete(`api/lists`, {
+               data: {
+                  _id: list.originalList,
+               },
+            })
+         }
          setLists(res.data.subscribed_lists)
       } catch (e) {
          alert('An Error Has Occured.')

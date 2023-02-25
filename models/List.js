@@ -8,7 +8,14 @@ const ListSchema = new Schema({
         required: true,
         trim: true,
     },
-    words: [mongoose.ObjectId]
+    words: [mongoose.ObjectId],
+    custom: {
+        type: Boolean,
+        required: true
+    },
+    parent: {
+        type: String,
+    }
 })
 
 module.exports = mongoose.models.List || mongoose.model("List", ListSchema);

@@ -15,8 +15,7 @@ import {
    getUserData,
 } from 'utils/api/client_api'
 import { findObjectById, joinObjectFields, organizeListsByParent } from 'utils/helpers'
-import { style } from '@mui/system'
-import ConfirmAction from 'components/global/ConfirmAction'
+
 
 function Vocabulary({ session, userLists, globalLists }) {
    const [populatedWords, setPopulatedWords] = useState([])
@@ -27,6 +26,7 @@ function Vocabulary({ session, userLists, globalLists }) {
       categorizedWords: null,
       organizedLists: null,
    })
+   const [newList, setNewList] = useState(true)
    useEffect(() => {
       async function f() {
          let { categorizedLists, categorizedWords } = categorizeUserLists(lists)
@@ -52,6 +52,7 @@ function Vocabulary({ session, userLists, globalLists }) {
 
    return (
       <div className={styles.wrapper}>
+         {newList && <NewList show={setNewList}/>}
          <main className={`${styles.main} ccter`}>
             <div className={styles.headingMain}>
                <h1>My vocabulary</h1>

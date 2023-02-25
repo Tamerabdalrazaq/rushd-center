@@ -53,6 +53,7 @@ export function getDate() {
 export function organizeListsByParent(lists) {
     const organized = {}
     for (const list of lists) {
+        if (list.custom) continue
         if (organized[list.parent]) {
             organized[list.parent].push(list)
         } else {

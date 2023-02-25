@@ -89,3 +89,12 @@ export async function collectWords(relevantWords) {
    let words = (await axios.post('/api/words/collect', { wordsIds })).data.words
    return words
 }
+
+export async function subscribe_user(USER_ID, list_id, custom) {
+   const res = await axios.post('/api/users/subscriptions', {
+      userId: USER_ID,
+      listId: list_id,
+      custom
+  })
+  return res
+}

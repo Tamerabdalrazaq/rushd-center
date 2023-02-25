@@ -14,7 +14,7 @@ export default async function (req, res) {
    }
 }
 
-async function subscribeUser(res, { userId, listId }) {
+async function subscribeUser(res, { userId, listId, custom }) {
    try {
       const list = await List.findOne({ _id: listId })
       if (!list) return res.status(400).json({ err: 'List not found.' })
@@ -25,6 +25,7 @@ async function subscribeUser(res, { userId, listId }) {
          name: list.name,
          wordsList: [...wordsIds],
          originalList: listId,
+         custom
       })
       const user = await User.findByIdAndUpdate(
          userId,
