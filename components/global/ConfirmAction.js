@@ -1,12 +1,15 @@
 import styles from 'styles/confirmaction.module.css'
 import Button from './Button'
-function ConfirmAction({ actions: { msg, action, setConfirmAction } }) {
+function ConfirmAction({ type, custom_styles, actions: { msg, action, setConfirmAction }, children}) {
    return (
       <>
          <div className={styles.container}>
             <div className={styles.msg}>
-               <h3>Are You Sure You Want to {msg}?</h3>
+               <h3>{messages[type]} {msg}?</h3>
             </div>
+
+            {children}
+
             <div className={styles.actions}>
                <Button
                   text="CANCEL"
@@ -28,6 +31,11 @@ function ConfirmAction({ actions: { msg, action, setConfirmAction } }) {
          <div className={styles.shader_div}></div>
       </>
    )
+}
+
+const messages = {
+   warning: "Are you sure you want to",
+   none: "",
 }
 
 export default ConfirmAction

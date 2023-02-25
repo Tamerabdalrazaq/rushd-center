@@ -4,6 +4,7 @@ import ListRow from 'components/vocabulary/ListRow'
 import ProgressBar from 'components/vocabulary/ProgressBar'
 import ListsSection from 'components/vocabulary/ListsSection'
 import WordsTable from 'components/vocabulary/WordsTable'
+import NewList from 'components/vocabulary/NewList'
 import styles from 'styles/vocabulary.module.css'
 import Button from '@mui/material/Button'
 import { authOptions } from 'pages/api/auth/[...nextauth]'
@@ -51,6 +52,7 @@ function Vocabulary({ session, userLists, globalLists }) {
 
    return (
       <div className={styles.wrapper}>
+         <NewList />
          <main className={`${styles.main} ccter`}>
             <div className={styles.headingMain}>
                <h1>My vocabulary</h1>

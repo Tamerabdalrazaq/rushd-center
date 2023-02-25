@@ -29,7 +29,7 @@ function ListRow({ list, setLists, categorizedList, originalList }) {
 
    return (
       <>
-         {confirmAction && <ConfirmAction actions={confirmAction} />}
+         {confirmAction && <ConfirmAction type = "warning" actions={confirmAction} />}
          <div className={`${styles.listRowContainer} ccter`}>
             <div className={styles.leftWrapper}>
                <div className="ccter">
