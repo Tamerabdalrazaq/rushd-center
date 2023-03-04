@@ -1,32 +1,35 @@
-import List from 'models/List'
-import User from 'models/User'
-import UserList from 'models/UserList'
-import connectDb from 'utils/connectDb'
-import { populate_list } from 'utils/server utils/db_utils'
+import List from "models/List";
+import User from "models/User";
+import UserList from "models/UserList";
+import connectDb from "utils/connectDb";
+import { populate_list } from "utils/server utils/db_utils";
 
-connectDb()
+connectDb();
 
 export default async function (req, res) {
    switch (req.method) {
-      case 'POST':
-         subscribeUser(res, req.body)
-         break
+      case "POST":
+         subscribeUser(res, req.body);
+         break;
+      case "PATCH":
+         addNewWord(req, res);
+         break;
    }
 }
 
 async function subscribeUser(res, { userId, listId, custom }) {
    try {
-      const list = await List.findOne({ _id: listId })
-      if (!list) return res.status(400).json({ err: 'List not found.' })
+      const list = await List.findOne({ _id: listId });
+      if (!list) return res.status(400).json({ err: "List not found." });
       const wordsIds = list.words.map((wordObjId) => ({
          _id: wordObjId.toString(),
-      }))
+      }));
       const userList = new UserList({
          name: list.name,
          wordsList: [...wordsIds],
          originalList: listId,
-         custom
-      })
+         custom,
+      });
       const user = await User.findByIdAndUpdate(
          userId,
          {
@@ -35,13 +38,33 @@ async function subscribeUser(res, { userId, listId, custom }) {
             },
          },
          { new: true }
-      )
-      if (!user) return res.status(404).json({ err: 'User not found.' })
-      await userList.save()
-      const populated_lists = await populate_list(user.lists, UserList)
-      return res.status(201).json({ user: user, subscribed_lists: populated_lists })
+      );
+      if (!user) return res.status(404).json({ err: "User not found." });
+      await userList.save();
+      const populated_lists = await populate_list(user.lists, UserList);
+      return res
+         .status(201)
+         .json({ user: user, subscribed_lists: populated_lists });
    } catch (e) {
-      res.status(400).json(e)
-      console.log(e)
+      res.status(400).json(e);
+      console.log(e);
+   }
+}
+
+async function addNewWord(req, res) {
+   try {
+      const { user_list, word_id } = req.body;
+      const userList = await UserList.findOne({ _id: user_list });
+      console.log(userList);
+      if (!userList) return res.status(400).json({ err: "List not found." });
+      await UserList.findByIdAndUpdate(user_list, {
+         $push: {
+            wordsList: { _id: word_id },
+         },
+      });
+      return res.status(201).json({ userList });
+   } catch (e) {
+      res.status(400).json(e);
+      console.log(e);
    }
 }
