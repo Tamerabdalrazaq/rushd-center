@@ -4,6 +4,7 @@ import { useState, useContext } from 'react'
 import { StatsContext } from 'context/UserStats'
 import { useAlert } from 'react-alert'
 import styles from 'styles/listsection.module.css'
+import { subscribe_user } from 'utils/api/client_api'
 
 function WordsListItem({ list, updateLists, userLists }) {
    const alert = useAlert()
@@ -14,10 +15,7 @@ function WordsListItem({ list, updateLists, userLists }) {
    async function subscribeUser() {
         try{
          if(!userLists.find((lst) => lst.originalList === list._id)) {
-            const res = await axios.post('/api/users/subscriptions', {
-                userId: USER_ID,
-                listId: list._id,
-            })
+            const res = await subscribe_user(USER_ID, list._id, false)
             updateLists(res.data.subscribed_lists)
             alert.show('Successfully Subscribed to '+ list.name, {type: 'success'})
          } else {

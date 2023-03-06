@@ -1,4 +1,4 @@
-import Button from '@mui/material/Button'
+import Button from '../global/Button'
 import Link from 'next/link'
 import { StatsContext } from 'context/UserStats'
 import axios from 'axios'
@@ -8,7 +8,7 @@ import { RiFileListFill } from 'react-icons/ri'
 import ProgressBar from './ProgressBar'
 import ConfirmAction from 'components/global/ConfirmAction'
 
-function ListRow({ list, setLists, categorizedList, originalList }) {
+function ListRow({ list, setLists, setListView, categorizedList, originalList }) {
    const statsContext = useContext(StatsContext)
    const [confirmAction, setConfirmAction] = useState(false)
    const { USER_ID } = statsContext
@@ -20,6 +20,15 @@ function ListRow({ list, setLists, categorizedList, originalList }) {
                userListId: list._id,
             },
          })
+
+         console.log(list)
+         if(list.custom) {
+            axios.delete(`api/lists`, {
+               data: {
+                  _id: list.originalList,
+               },
+            })
+         }
          setLists(res.data.subscribed_lists)
       } catch (e) {
          alert('An Error Has Occured.')
@@ -35,7 +44,7 @@ function ListRow({ list, setLists, categorizedList, originalList }) {
                <div className="ccter">
                   <RiFileListFill />
                </div>
-               <div className={styles.listRowName}>
+               <div className={styles.list_description}>
                   <h4>{list.name}</h4>
                   <div>
                      <h6>{originalList.parent}</h6>
@@ -58,6 +67,15 @@ function ListRow({ list, setLists, categorizedList, originalList }) {
                      <Button
                         variant="outlined"
                         color="secondary"
+                        onClick={() => setListView(list)}
+                     >
+                        View
+                     </Button>
+                  </div>
+                  <div>
+                     <Button
+                        variant="outlined"
+                        color="secondary"
                         onClick={() => setConfirmAction({
                            msg: `Unsubscribe from ${list.name}`,
                            action: unsubscribe,
@@ -68,7 +86,7 @@ function ListRow({ list, setLists, categorizedList, originalList }) {
                      </Button>
                   </div>
                </div>
-               <div>
+               <div className={styles.rightWrapper_bottom}>
                   {categorizedList && (
                      <ProgressBar
                         reviewed={categorizedList.reviewed?.length}

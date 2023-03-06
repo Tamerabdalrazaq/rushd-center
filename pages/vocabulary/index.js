@@ -1,57 +1,65 @@
-import React, { useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
-import ListRow from 'components/vocabulary/ListRow'
-import ProgressBar from 'components/vocabulary/ProgressBar'
-import ListsSection from 'components/vocabulary/ListsSection'
-import WordsTable from 'components/vocabulary/WordsTable'
-import NewList from 'components/vocabulary/NewList'
-import styles from 'styles/vocabulary.module.css'
-import Button from '@mui/material/Button'
-import { authOptions } from 'pages/api/auth/[...nextauth]'
-import { unstable_getServerSession } from 'next-auth'
+import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import ListRow from "components/vocabulary/ListRow";
+import ProgressBar from "components/vocabulary/ProgressBar";
+import ListsSection from "components/vocabulary/ListsSection";
+import WordsTable from "components/vocabulary/WordsTable";
+import NewList from "components/vocabulary/CreateNewList";
+import styles from "styles/vocabulary.module.css";
+import Button from "@mui/material/Button";
+import CustomButton from "components/global/Button";
+import { authOptions } from "pages/api/auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth";
 import {
    categorizeUserLists,
    collectWords,
    getUserData,
-} from 'utils/api/client_api'
-import { findObjectById, joinObjectFields, organizeListsByParent } from 'utils/helpers'
-import { style } from '@mui/system'
-import ConfirmAction from 'components/global/ConfirmAction'
+} from "utils/api/client_api";
+import {
+   findObjectById,
+   joinObjectFields,
+   organizeListsByParent,
+} from "utils/helpers";
+import ListView from "components/vocabulary/ListView";
 
 function Vocabulary({ session, userLists, globalLists }) {
-   const [populatedWords, setPopulatedWords] = useState([])
-   const [lists, setLists] = useState(userLists)
-   const [loading, setLoading] = useState(false)
+   const [populatedWords, setPopulatedWords] = useState([]);
+   const [lists, setLists] = useState(userLists);
+   const [loading, setLoading] = useState(false);
    const static_data = useRef({
       categorizedLists: null,
       categorizedWords: null,
       organizedLists: null,
-   })
+   });
+   const [newList, setNewList] = useState(false);
+   const [listView, setListView] = useState(false);
    useEffect(() => {
       async function f() {
-         let { categorizedLists, categorizedWords } = categorizeUserLists(lists)
-         let organizedLists = organizeListsByParent(globalLists)
+         console.log(lists);
+         let { categorizedLists, categorizedWords } =
+            categorizeUserLists(lists);
+         let organizedLists = organizeListsByParent(globalLists);
          static_data.current = {
             categorizedLists,
             categorizedWords,
             organizedLists,
-         }
-         setLoading(true)
-         const data = await collectWords(joinObjectFields(categorizedWords))
-         setPopulatedWords(data)
-         setLoading(false)
+         };
+         setLoading(true);
+         const data = await collectWords(joinObjectFields(categorizedWords));
+         setPopulatedWords(data);
+         setLoading(false);
+         console.log(lists);
       }
-      session && f()
-   }, [lists])
+      session && f();
+   }, [lists]);
 
-   const {
-      categorizedLists,
-      categorizedWords,
-      organizedLists,
-   } = static_data.current
+   const { categorizedLists, categorizedWords, organizedLists } =
+      static_data.current;
 
    return (
       <div className={styles.wrapper}>
+         {newList && <NewList show={setNewList} />}
+         {listView && <ListView list={listView} setListView={setListView} />}
          <main className={`${styles.main} ccter`}>
             <div className={styles.headingMain}>
                <h1>My vocabulary</h1>
@@ -61,7 +69,7 @@ function Vocabulary({ session, userLists, globalLists }) {
                   <div className={`${styles.progress} ccter`}>
                      <h3>
                         {categorizedWords.reviewed?.length +
-                           categorizedWords.needReview?.length}{' '}
+                           categorizedWords.needReview?.length}{" "}
                         Words Learned
                      </h3>
                      <ProgressBar
@@ -79,6 +87,7 @@ function Vocabulary({ session, userLists, globalLists }) {
                         </Link>
                      </div>
                   </div>
+
                   <div className={styles.lists_words_section}>
                      <div className={styles.myLists}>
                         <div className={styles.myListsTitle}>
@@ -91,10 +100,23 @@ function Vocabulary({ session, userLists, globalLists }) {
                                     key={list._id}
                                     list={list}
                                     setLists={setLists}
+                                    setListView={setListView}
                                     categorizedList={categorizedLists[list._id]}
-                                    originalList={findObjectById(globalLists, list.originalList)}
+                                    originalList={findObjectById(
+                                       globalLists,
+                                       list.originalList
+                                    )}
                                  />
                               ))}
+                              <div className="ccter">
+                                 <CustomButton
+                                    text="Create New List"
+                                    type="reddish"
+                                    onClick={() => {
+                                       setNewList(true);
+                                    }}
+                                 />
+                              </div>
                            </div>
                         ) : (
                            <div className={styles.emptyList}>
@@ -130,7 +152,7 @@ function Vocabulary({ session, userLists, globalLists }) {
             )}
          </main>
       </div>
-   )
+   );
 }
 
 export async function getServerSideProps(context) {
@@ -138,16 +160,16 @@ export async function getServerSideProps(context) {
       context.req,
       context.res,
       authOptions
-   )
+   );
    if (!session)
       return {
          props: {
             session: false,
          },
-      }
+      };
    else {
-      const data = await getUserData(session)
-      const { userLists, categorizedWords, globalLists } = data
+      const data = await getUserData(session);
+      const { userLists, categorizedWords, globalLists } = data;
       return {
          props: {
             session,
@@ -155,8 +177,8 @@ export async function getServerSideProps(context) {
             categorizedWords,
             globalLists,
          },
-      }
+      };
    }
 }
 
-export default Vocabulary
+export default Vocabulary;

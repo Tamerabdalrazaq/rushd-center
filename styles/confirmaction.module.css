@@ -4,7 +4,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: var(--bg-main);
-    width: 24em;
+    min-width: 24em;
     min-height: 4em;
     padding: 2em;
     z-index: 99;
