@@ -7,6 +7,7 @@ import WordsTable from "components/vocabulary/WordsTable";
 import NewList from "components/vocabulary/CreateNewList";
 import styles from "styles/vocabulary.module.css";
 import Button from "@mui/material/Button";
+import CustomButton from "components/global/Button";
 import { authOptions } from "pages/api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth";
 import {
@@ -30,8 +31,8 @@ function Vocabulary({ session, userLists, globalLists }) {
       categorizedWords: null,
       organizedLists: null,
    });
-   const [newList, setNewList] = useState(true);
-   const [listView, setListView] = useState();
+   const [newList, setNewList] = useState(false);
+   const [listView, setListView] = useState(false);
    useEffect(() => {
       async function f() {
          console.log(lists);
@@ -86,6 +87,7 @@ function Vocabulary({ session, userLists, globalLists }) {
                         </Link>
                      </div>
                   </div>
+
                   <div className={styles.lists_words_section}>
                      <div className={styles.myLists}>
                         <div className={styles.myListsTitle}>
@@ -106,6 +108,15 @@ function Vocabulary({ session, userLists, globalLists }) {
                                     )}
                                  />
                               ))}
+                              <div className="ccter">
+                                 <CustomButton
+                                    text="Create New List"
+                                    type="reddish"
+                                    onClick={() => {
+                                       setNewList(true);
+                                    }}
+                                 />
+                              </div>
                            </div>
                         ) : (
                            <div className={styles.emptyList}>

@@ -108,6 +108,7 @@ export async function create_new_word(
    try {
       let res = await axios.post("/api/words", {
          parentId: list_id,
+         custom: true,
          ...body,
       });
       const word_id = res.data.newWord._id;
