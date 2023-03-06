@@ -63,7 +63,7 @@ function ListView({ list, setListView }) {
                         {populatedWords ? (
                            populatedWords.length > 0 ? (
                               populatedWords.map((word) => (
-                                 <div>
+                                 <div key={word._id}>
                                     <Circle
                                        color={`var(--circle-${get_circle_color(
                                           word.dueTime
