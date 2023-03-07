@@ -35,7 +35,6 @@ function Vocabulary({ session, userLists, globalLists }) {
    const [listView, setListView] = useState(false);
    useEffect(() => {
       async function f() {
-         console.log(lists);
          let { categorizedLists, categorizedWords } =
             categorizeUserLists(lists);
          let organizedLists = organizeListsByParent(globalLists);
@@ -48,7 +47,6 @@ function Vocabulary({ session, userLists, globalLists }) {
          const data = await collectWords(joinObjectFields(categorizedWords));
          setPopulatedWords(data);
          setLoading(false);
-         console.log(lists);
       }
       session && f();
    }, [lists]);

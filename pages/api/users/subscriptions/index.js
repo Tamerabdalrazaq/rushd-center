@@ -55,7 +55,6 @@ async function addNewWord(req, res) {
    try {
       const { user_list, word_id } = req.body;
       const userList = await UserList.findOne({ _id: user_list });
-      console.log(userList);
       if (!userList) return res.status(400).json({ err: "List not found." });
       await UserList.findByIdAndUpdate(user_list, {
          $push: {

@@ -1,17 +1,23 @@
-import Button from '../global/Button'
-import Link from 'next/link'
-import { StatsContext } from 'context/UserStats'
-import axios from 'axios'
-import styles from 'styles/vocabulary.module.css'
-import { useContext, useState } from 'react'
-import { RiFileListFill } from 'react-icons/ri'
-import ProgressBar from './ProgressBar'
-import ConfirmAction from 'components/global/ConfirmAction'
+import Button from "../global/Button";
+import Link from "next/link";
+import { StatsContext } from "context/UserStats";
+import axios from "axios";
+import styles from "styles/vocabulary.module.css";
+import { useContext, useState } from "react";
+import { RiFileListFill } from "react-icons/ri";
+import ProgressBar from "./ProgressBar";
+import ConfirmAction from "components/global/ConfirmAction";
 
-function ListRow({ list, setLists, setListView, categorizedList, originalList }) {
-   const statsContext = useContext(StatsContext)
-   const [confirmAction, setConfirmAction] = useState(false)
-   const { USER_ID } = statsContext
+function ListRow({
+   list,
+   setLists,
+   setListView,
+   categorizedList,
+   originalList,
+}) {
+   const statsContext = useContext(StatsContext);
+   const [confirmAction, setConfirmAction] = useState(false);
+   const { USER_ID } = statsContext;
 
    async function unsubscribe() {
       try {
@@ -19,26 +25,27 @@ function ListRow({ list, setLists, setListView, categorizedList, originalList })
             data: {
                userListId: list._id,
             },
-         })
+         });
 
-         console.log(list)
-         if(list.custom) {
+         if (list.custom) {
             axios.delete(`api/lists`, {
                data: {
                   _id: list.originalList,
                },
-            })
+            });
          }
-         setLists(res.data.subscribed_lists)
+         setLists(res.data.subscribed_lists);
       } catch (e) {
-         alert('An Error Has Occured.')
-         alert(e)
+         alert("An Error Has Occured.");
+         alert(e);
       }
    }
 
    return (
       <>
-         {confirmAction && <ConfirmAction type = "warning" actions={confirmAction} />}
+         {confirmAction && (
+            <ConfirmAction type="warning" actions={confirmAction} />
+         )}
          <div className={`${styles.listRowContainer} ccter`}>
             <div className={styles.leftWrapper}>
                <div className="ccter">
@@ -76,11 +83,13 @@ function ListRow({ list, setLists, setListView, categorizedList, originalList })
                      <Button
                         variant="outlined"
                         color="secondary"
-                        onClick={() => setConfirmAction({
-                           msg: `Unsubscribe from ${list.name}`,
-                           action: unsubscribe,
-                           setConfirmAction,
-                        })}
+                        onClick={() =>
+                           setConfirmAction({
+                              msg: `Unsubscribe from ${list.name}`,
+                              action: unsubscribe,
+                              setConfirmAction,
+                           })
+                        }
                      >
                         Unsubscribe
                      </Button>
@@ -99,7 +108,7 @@ function ListRow({ list, setLists, setListView, categorizedList, originalList })
             </div>
          </div>
       </>
-   )
+   );
 }
 
-export default ListRow
+export default ListRow;

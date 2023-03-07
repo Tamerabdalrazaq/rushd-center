@@ -42,7 +42,6 @@ function NewList({ show }) {
             parent: description,
             custom: true,
          });
-         console.log(res_create);
          const res_subscribe = await subscribe_user(
             USER_ID,
             res_create.data.res._id,

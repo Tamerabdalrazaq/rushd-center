@@ -28,7 +28,6 @@ function ListView({ list, setListView }) {
                ...data.find((d) => d._id == word._id),
             };
          });
-         console.log(populated);
          setPopulatedWords(populated);
       }
       data && f();
