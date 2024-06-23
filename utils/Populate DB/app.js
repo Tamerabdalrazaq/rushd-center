@@ -1,5 +1,4 @@
-const MONGODB =
-   'mongodb://rushadmin:vUyKhSLfjGFr7Lxg@cluster0-shard-00-00.e8k8d.mongodb.net:27017,cluster0-shard-00-01.e8k8d.mongodb.net:27017,cluster0-shard-00-02.e8k8d.mongodb.net:27017/myFirstDatabase?authSource=admin&replicaSet=atlas-zqchz7-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true'
+const MONGODB = null
 const mongoose = require('mongoose')
 const axios = require('axios')
 const Word = require('./models/Word')
